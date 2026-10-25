@@ -1,0 +1,35 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+version = project.mod_version
+group = project.maven_group
+base { archivesName = project.archives_base_name }
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    // 26.x is unobfuscated: no mappings line, plain implementation (not modImplementation)
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") { expand "version": project.version }
+}
+
+tasks.withType(JavaCompile).configureEach { it.options.release = 25 }
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+// ./gradlew installMod -PmodsDir="C:/Users/you/AppData/Roaming/.minecraft/mods"
+// (or set the MC_MODS_DIR environment variable). Builds and copies the jar into your mods folder.
+tasks.register('installMod', Copy) {
+    dependsOn tasks.named('build')
+    from tasks.named('jar')
+    into((findProperty('modsDir') ?: System.getenv('MC_MODS_DIR') ?: layout.buildDirectory.dir('installed').get().asFile.path))
+    doLast { println "Copied mod jar to: ${destinationDir}" }
+}
