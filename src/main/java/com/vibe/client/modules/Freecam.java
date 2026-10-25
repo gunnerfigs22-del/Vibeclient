@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.ClientInput;
 import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.world.phys.Vec3;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.UUID;
 
@@ -22,7 +21,7 @@ public class Freecam extends Module {
     private RemotePlayer cam;
     private ClientInput savedInput;
 
-    public Freecam() { super("Freecam", Category.RENDER, GLFW.GLFW_KEY_UNKNOWN); }
+    public Freecam() { super("Freecam", Category.RENDER, -1); }
 
     @Override
     public void onEnable(Minecraft mc) {

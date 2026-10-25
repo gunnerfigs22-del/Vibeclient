@@ -9,6 +9,6 @@ public final class Chat {
 
     public static void info(String msg) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player != null) mc.player.displayClientMessage(Component.literal("[Vibe] " + msg), false);
+        if (mc.player != null) mc.player.sendSystemMessage(Component.literal("[Vibe] " + msg));
     }
 }

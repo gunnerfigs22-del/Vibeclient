@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +27,7 @@ public class StashFinder extends Module {
     private final Set<Long> reported = new HashSet<>();
     private int timer;
 
-    public StashFinder() { super("StashFinder", Category.WORLD, GLFW.GLFW_KEY_UNKNOWN); }
+    public StashFinder() { super("StashFinder", Category.WORLD, -1); }
 
     @Override
     public void onEnable(Minecraft mc) {

@@ -5,7 +5,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -19,6 +18,8 @@ public class ClickGui extends Screen {
     // Window positions persist between opens
     private static final Map<Category, int[]> POS = new EnumMap<>(Category.class);
 
+    public static boolean open;
+
     private Category dragging;
     private double dragOffX, dragOffY;
 
@@ -28,6 +29,7 @@ public class ClickGui extends Screen {
 
     @Override
     protected void init() {
+        open = true;
         int i = 0;
         for (Category c : Category.values()) {
             POS.computeIfAbsent(c, k -> new int[]{0, 0});
@@ -35,6 +37,12 @@ public class ClickGui extends Screen {
             if (p[0] == 0 && p[1] == 0) { p[0] = 12 + i * (WIDTH + GAP); p[1] = 12; }
             i++;
         }
+    }
+
+    @Override
+    public void removed() {
+        open = false;
+        super.removed();
     }
 
     @Override
@@ -111,7 +119,7 @@ public class ClickGui extends Screen {
 
     @Override
     public boolean keyPressed(KeyEvent event) {
-        if (event.key() == GLFW.GLFW_KEY_RIGHT_SHIFT) {   // Right Shift again closes it
+        if (event.key() == 344) {   // Right Shift again closes it
             onClose();
             return true;
         }

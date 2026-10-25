@@ -6,7 +6,6 @@ import com.vibe.client.Module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.world.entity.player.Player;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +19,7 @@ public class PlayerActivity extends Module {
     private Set<String> nearby = new HashSet<>();
     private int timer;
 
-    public PlayerActivity() { super("PlayerActivity", Category.PLAYER, GLFW.GLFW_KEY_UNKNOWN); }
+    public PlayerActivity() { super("PlayerActivity", Category.PLAYER, -1); }
 
     @Override
     public void onEnable(Minecraft mc) {

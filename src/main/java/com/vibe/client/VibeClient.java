@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
-import org.lwjgl.glfw.GLFW;
 
 public class VibeClient implements ClientModInitializer {
     private static KeyMapping guiKey;
@@ -34,12 +33,12 @@ public class VibeClient implements ClientModInitializer {
         guiKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             "key.vibeclient.gui",
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_RIGHT_SHIFT,
+            344,
             CATEGORY));
 
         ClientTickEvents.END_CLIENT_TICK.register(mc -> {
             while (guiKey.consumeClick()) {
-                if (mc.screen == null) mc.setScreen(new ClickGui());
+                if (!ClickGui.open) mc.gui.setScreen(new ClickGui());
             }
             if (mc.player == null) return;
             for (Module m : MODULES.all()) {
